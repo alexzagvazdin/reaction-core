@@ -318,7 +318,7 @@ Meteor.methods({
    * @param {String} currentTagId - currentTagId
    * @return {String} returns remove result
    */
-  "shop/remolveHeaderTag": function (tagId, currentTagId) {
+  "shop/removeHeaderTag": function (tagId, currentTagId) {
     check(tagId, String);
     check(currentTagId, String);
     // must have core permissions
