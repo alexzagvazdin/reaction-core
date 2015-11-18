@@ -115,11 +115,13 @@ Meteor.methods({
           result.currency.exchangeRate = Meteor.call(
             "shop/getCurrencyRates", currency);
 
-          if (!exchangeRate) {
+          if (exchangeRate) {
+            result.currency.exchangeRate = exchangeRate.data;
+          }
+          else {
             ReactionCore.Log.warn(
               "Failed to fetch rate exchange rates.");
           }
-          result.currency.exchangeRate = exchangeRate.data;
         }
       }
     });
@@ -162,7 +164,7 @@ Meteor.methods({
     });
 
     // shop open exchange rates appId
-    let openexchangeratesAppId = shopSettings.settings.openexchangerates.appId;
+    let openexchangeratesAppId = shopSettings.settings.openexchangerates ? shopSettings.settings.openexchangerates.appId : null;
 
     // update Shops.currencies[currencyKey].rate
     // with current rates from Open Exchange Rates
@@ -316,7 +318,7 @@ Meteor.methods({
    * @param {String} currentTagId - currentTagId
    * @return {String} returns remove result
    */
-  "shop/removeHeaderTag": function (tagId, currentTagId) {
+  "shop/remolveHeaderTag": function (tagId, currentTagId) {
     check(tagId, String);
     check(currentTagId, String);
     // must have core permissions
